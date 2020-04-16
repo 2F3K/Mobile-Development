@@ -1,17 +1,15 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-const SecondScreen = props => {
+const SecondScreen = ({ route }) => {
+  const { thing, text } = route.params;
+
   return (
     <View>
-      <Text>Screen Two</Text>
-      <Button title="Go Back" onPress={() => { props.navigation.goBack(); }} />
+      <Text>{thing}</Text>
+      <Text>{text}</Text>
     </View>
   );
-}
-
-SecondScreen.navigationOptions = {
-  headerTitle: 'Add Place'
 }
 
 export default SecondScreen;

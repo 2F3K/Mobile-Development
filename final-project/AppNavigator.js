@@ -1,21 +1,63 @@
-import { Platform } from 'react-native'
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import React from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import MenuScreen from './screens/MenuScreen';
 import FirstScreen from './screens/FirstScreen';
 import SecondScreen from './screens/SecondScreen';
 
-const AppNavigator = createStackNavigator(
-  {
-    ScreenOne: { screen: FirstScreen },
-    ScreenTwo: { screen: SecondScreen }
-  },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? 'green' : ''
-      },
-      headerTintColor: Platform.OS === 'android' ? 'white' : 'blue'
-    }
-  }
-);
+const Stack = createStackNavigator();
 
-export default createAppContainer(AppNavigator);
+const AppNavigator = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Menu"
+                      component={MenuScreen}
+                      options={{
+                        title: 'Grocery Time',
+                        headerStyle: {
+                          backgroundColor: '#333A46'
+                        },
+                        headerTintColor: '#DCE7FA',
+                        headerTitleStyle: {
+                          fontWeight: 'bold',
+                        },
+                        headerTitleAlign: 'center'
+                      }}
+        />
+        <Stack.Screen name="Thing1"
+                      component={FirstScreen}
+                      options={{
+                        title: 'Thing #1',
+                        headerStyle: {
+                          backgroundColor: '#333A46'
+                        },
+                        headerTintColor: '#DCE7FA',
+                        headerTitleStyle: {
+                          fontWeight: 'bold'
+                        },
+                        headerTitleAlign: 'center'
+                      }}
+        />
+        <Stack.Screen name="Thing2"
+                      component={SecondScreen}
+                      options={{
+                        title: 'Thing #2',
+                        headerStyle: {
+                          backgroundColor: '#333A46'
+                        },
+                        headerTintColor: '#DCE7FA',
+                        headerTitleStyle: {
+                          fontWeight: 'bold'
+                        },
+                        headerTitleAlign: 'center'
+                      }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default AppNavigator;
