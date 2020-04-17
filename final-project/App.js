@@ -8,11 +8,18 @@ NOTE(CK): Apr 17 - We could put each api on its own page? Audio / SMS / Camera /
 
                    Currently have placeholder names for the props that get passed to each page 
 
-                   
+                   I am going to put the authentication for firebase in the MenuScreen for now
+                   should probably be abstracted into a module 
+
+                   // The user you can login in with is
+                   email = test@test.com
+                   pass = apple123!
+
 */
 
 
 export default function App() {
+
   return (
       <AppNavigator />
   );
