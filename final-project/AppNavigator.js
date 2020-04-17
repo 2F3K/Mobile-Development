@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import MenuScreen from './screens/MenuScreen';
-import FirstScreen from './screens/FirstScreen';
-import SecondScreen from './screens/SecondScreen';
+import AudioScreen from './screens/AudioScreen';
+import SMSScreen from './screens/SMSScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,10 +27,10 @@ const AppNavigator = () => {
                         headerTitleAlign: 'center'
                       }}
         />
-        <Stack.Screen name="Thing1"
-                      component={FirstScreen}
+        <Stack.Screen name="AudioScreen"
+                      component={AudioScreen}
                       options={{
-                        title: 'Thing #1',
+                        title: 'Audio List',
                         headerStyle: {
                           backgroundColor: '#333A46'
                         },
@@ -41,8 +41,8 @@ const AppNavigator = () => {
                         headerTitleAlign: 'center'
                       }}
         />
-        <Stack.Screen name="Thing2"
-                      component={SecondScreen}
+        <Stack.Screen name="SMSScreen"
+                      component={SMSScreen}
                       options={{
                         title: 'Thing #2',
                         headerStyle: {

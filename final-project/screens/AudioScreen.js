@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Platform, TextInput, Button } from 'react-native';
 
-const FirstScreen = ({ route }) => {
+const AudioScreen = ({ route }) => {
   const { thing, text } = route.params;
 
   return (
@@ -11,4 +11,4 @@ const FirstScreen = ({ route }) => {
     </View>
   );
 }
-export default FirstScreen;
+export default AudioScreen;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-const SecondScreen = ({ route }) => {
+const SMSScreen = ({ route }) => {
   const { thing, text } = route.params;
 
   return (
@@ -12,4 +12,4 @@ const SecondScreen = ({ route }) => {
   );
 }
 
-export default SecondScreen;
+export default SMSScreen;
