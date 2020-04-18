@@ -1,87 +1,89 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
-import { db, firestore, auth } from '../FirebaseConfig';
-import { styles } from '../styles/styles';
-
+import React, { useState } from "react";
+import { View, Text, TextInput, Button, Alert } from "react-native";
+import { db, firestore, auth } from "../FirebaseConfig";
+import { styles } from "../styles/styles";
+import { useKeepAwake } from "expo-keep-awake";
 
 const things = [
   { thing: "a thing here", text: "here is some text" },
-  { thing: "another thing", text: "more text" }
+  { thing: "another thing", text: "more text" },
 ];
 
-const MenuScreen = props => {
-  // firebase auth states 
-  [registrationEmail, setRegistrationEmail] = useState('');
-  [registrationPass, setRegistrationPass] = useState('');
-  [loginEmail, setLoginEmail] = useState('');
-  [loginPass, setLoginPass] = useState('');
-  [loggedIn, setLoggedIn] = useState(false);
-  [databaseData, setDatabaseData] = useState('');
+const MenuScreen = (props) => {
+  console.log(props);
+  // firebase auth states
+  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [registrationPass, setRegistrationPass] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPass, setLoginPass] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [databaseData, setDatabaseData] = useState("");
+  const [userLists, setUserLists] = useState([]);
 
-  registerWithFirebase = () => {
+  const registerWithFirebase = () => {
     if (registrationEmail.length < 4) {
-      Alert.alert('Please enter an email address.');
+      Alert.alert("Please enter an email address.");
       return;
     }
 
     if (registrationPass.length < 4) {
-      Alert.alert('Please enter a password.');
+      Alert.alert("Please enter a password.");
       return;
     }
 
-    auth.createUserWithEmailAndPassword(registrationEmail, registrationPass)
+    auth
+      .createUserWithEmailAndPassword(registrationEmail, registrationPass)
       .then(function (_firebaseUser) {
-        Alert.alert('user registered');
+        Alert.alert("user registered");
 
-        setRegistrationEmail('');
-        setRegistrationPass('');
+        setRegistrationEmail("");
+        setRegistrationPass("");
       })
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
 
-        if (errorCode == 'auth/weak-password') {
-          Alert.alert('The password is too weak.');
-        } 
-        else {
+        if (errorCode == "auth/weak-password") {
+          Alert.alert("The password is too weak.");
+        } else {
           Alert.alert(errorMessage);
         }
         console.log(error);
       });
   };
 
-  loginWithFirebase = () => {
+  const loginWithFirebase = () => {
     if (loginEmail.length < 4) {
-      Alert.alert('Please enter an email address');
+      Alert.alert("Please enter an email address");
       return;
     }
 
     if (loginPass.length < 4) {
-      Alert.alert('Please enter a password.');
+      Alert.alert("Please enter a password.");
       return;
     }
 
-    auth.signInWithEmailAndPassword(loginEmail, loginPass)
+    auth
+      .signInWithEmailAndPassword(loginEmail, loginPass)
       .then(function (_firebaseUser) {
-        Alert.alert('user logged in!');
+        Alert.alert("user logged in!");
         setLoggedIn(true);
       })
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          Alert.alert('Wrong password');
-        }
-        else {
-          Alert.alert(errorMEssage)
+        if (errorCode === "auth/wrong-password") {
+          Alert.alert("Wrong password");
+        } else {
+          Alert.alert(errorMEssage);
         }
       });
   };
 
-  signoutWithFirebase = () => {
+  const signoutWithFirebase = () => {
     auth.signOut().then(function () {
       if (!auth.currentUser) {
-        Alert.alert('user was logged out!');
+        Alert.alert("user was logged out!");
         setLoggedIn(false);
       }
     });
@@ -94,27 +96,30 @@ const MenuScreen = props => {
 
     var userId = auth.currentUser.uid;
 
-    db.ref('users/' + userId).set({
-      text: databaseData
+    db.ref("users/" + userId).set({
+      text: databaseData,
     });
 
     // SAVE DATA TO FIRESTORE
-    firestore.collection('users').doc(userId).set(
-      {
-        text: databaseData,
-      },
-      {
-        merge: true // set with merge set to true to make sure we don't remove data we didn't intend to
-      }
-    )
-    .then(function () {
-      Alert.alert('Document successfully written!');
-    })
-    .catch(function (error) {
-      Alert.alert('Error writing document');
-      console.log('Error writing document: ', error);
-    })
-  };
+    firestore
+      .collection("users")
+      .doc(userId)
+      .set(
+        {
+          text: databaseData,
+        },
+        {
+          merge: true, // set with merge set to true to make sure we don't remove data we didn't intend to
+        }
+      )
+      .then(function () {
+        Alert.alert("Document successfully written!");
+      })
+      .catch(function (error) {
+        Alert.alert("Error writing document");
+        console.log("Error writing document: ", error);
+      });
+  }
 
   function retrieveDataFromFirebase() {
     // when loading data, you can either fetch the data once like in these examples
@@ -142,13 +147,16 @@ const MenuScreen = props => {
       });
     */
 
-   
-   // real time updates 
-   firestore.collection("users").doc(userId).onSnapshot(function (doc) {
-     setDatabaseData(doc.data().text);
-     console.log("Document data:", doc.data());
-    });
-  };
+    // real time updates
+    firestore
+      .collection("users")
+      .doc(userId)
+      .onSnapshot(function (doc) {
+        setDatabaseData(doc.data().text);
+        console.log("Document data:", doc.data());
+      });
+  }
+  useKeepAwake();
 
   return (
     <View style={styles.mainscreen}>
@@ -160,64 +168,70 @@ const MenuScreen = props => {
         onPress={() => props.navigation.navigate("AudioScreen", things[0])}
       />
       <Button
+        title="Create List"
+        color="#3D5168"
+        onPress={() => props.navigation.navigate("ListScreen", things[0])}
+      />
+      <Button
         title="Confirm Pick Up"
-        color="#3D5168" 
+        color="#3D5168"
         onPress={() => props.navigation.navigate("SMSScreen", things[1])}
       />
-      {!loggedIn &&
+      {userLists.length > 0 && <View>{}</View>}
+      {!loggedIn && (
         <View>
           <Text>Login</Text>
           <TextInput
-            onChangeText={(value) => setRegistrationEmail(value) }
+            onChangeText={(value) => setRegistrationEmail(value)}
             autoCapitalize="none"
             autoCorrect={false}
-            autoCompleteType="email"
+            autocompletetype="email"
             keyboardType="email-address"
             placeholder="email"
           />
           <TextInput
-            onChangeText={(value) => setRegistrationPass(value) }
+            onChangeText={(value) => setRegistrationPass(value)}
             autoCapitalize="none"
             autoCorrect={false}
-            autoCompleteType="password"
-            keyboardType="visible-password"
+            autocompletetype="password"
+            // keyboardType="visible-password"
             placeholder="password"
           />
           <Button title="Register" onPress={registerWithFirebase} />
           <Text>Sign in</Text>
           <TextInput
-            onChangeText={(value) => setLoginEmail(value) }
+            onChangeText={(value) => setLoginEmail(value)}
             autoCapitalize="none"
             autoCorrect={false}
-            autoCompleteType="email"
+            autocompletetype="email"
             keyboardType="email-address"
             placeholder="email"
           />
           <TextInput
-            onChangeText={(value) => setLoginPass(value) }
+            onChangeText={(value) => setLoginPass(value)}
             autoCapitalize="none"
             autoCorrect={false}
-            autoCompleteType="password"
-            keyboardType="visible-password"
+            autocompletetype="password"
+            // keyboardType="visible-password"
             placeholder="password"
           />
           <Button title="Login" onPress={loginWithFirebase} />
         </View>
-      }
-      {loggedIn &&
+      )}
+      {loggedIn && (
         <View>
           <TextInput
             multiline={true}
             numberOfLines={4}
-            onChangeText={(value) => setDatabaseData(value) }
+            onChangeText={(value) => setDatabaseData(value)}
             value={databaseData}
-            style={{ borderBottomWidth: 2, borderBottomColor: 'black' }}
+            style={{ borderBottomWidth: 2, borderBottomColor: "black" }}
           />
           <Button title="Save Data" onPress={saveDataWithFirebase} />
           <Button title="Load Data" onPress={retrieveDataFromFirebase} />
           <Button title="Sign Out" onPress={signoutWithFirebase} />
         </View>
-      }
+      )}
     </View>
   );
 };
