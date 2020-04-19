@@ -16,7 +16,6 @@ const MenuScreen = (props) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [databaseData, setDatabaseData] = useState("");
   const [userLists, setUserLists] = useState([]);
 
   const registerWithFirebase = () => {
@@ -92,7 +91,6 @@ const MenuScreen = (props) => {
 
   return (
     <View style={styles.mainscreen}>
-      <Text>Navigation buttons</Text>
       <Button
         title="Audio List"
         color="#3D5168"
@@ -102,7 +100,7 @@ const MenuScreen = (props) => {
       <Button
         title="Create List"
         color="#3D5168"
-        onPress={() => props.navigation.navigate("ListScreen", { userId: auth.currentUser.uid })}
+        onPress={() => props.navigation.navigate("ListScreen", { userId: auth.currentUser.uid, userName: auth.currentUser.displayName })}
       />
       <Button
         title="Confirm Pick Up"

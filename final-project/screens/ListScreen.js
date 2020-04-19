@@ -6,7 +6,7 @@ import { db, auth } from "../FirebaseConfig";
 import { styles } from "../styles/styles";
 
 const ListScreen = ({ route }) => {
-  const { userId } = route.params;
+  const { userId, userName } = route.params;
   const [listTitle, setListTitle] = useState("");
   const [itemsList, setItems] = useState([]);
   const [itemName, setItemName] = useState("");
@@ -34,17 +34,27 @@ const ListScreen = ({ route }) => {
 
   function saveToDB() {
     //var userId = auth.currentUser.uid;
-    db.ref("users/" + userId).set({
-      list: itemsList,
-    });
+    if (userId != null) {
+      db.ref("users/" + userId).set({
+        list: itemsList,
+        title: listTitle
+      });
+    } else {
+      console.log("please login");
+    }
   }
 
   function retrieveFromDB() {
     //var userId = auth.currentUser.uid;
     // Load from realtime DB
-    db.ref('/users/' + userId).once('value').then(function (snapshot) {
-      setItems(snapshot.val().list);
-    });
+    if (userId != null) {
+      db.ref('/users/' + userId).once('value').then(function (snapshot) {
+        setItems(snapshot.val().list);
+        setListTitle(snapshot.val().title);
+      });
+    } else {
+      console.log("please login");
+    }
   }
 
   return (
