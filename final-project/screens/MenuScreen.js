@@ -4,11 +4,6 @@ import { db, auth } from "../FirebaseConfig";
 import { styles } from "../styles/styles";
 import { useKeepAwake } from "expo-keep-awake";
 
-const things = [
-  { thing: "a thing here", text: "here is some text" },
-  { thing: "another thing", text: "more text" },
-];
-
 const MenuScreen = (props) => {
   // firebase auth states
   const [registrationEmail, setRegistrationEmail] = useState("");
@@ -90,12 +85,12 @@ const MenuScreen = (props) => {
   useKeepAwake();
 
   return (
-    <View style={styles.mainscreen}>
+    <View style={styles.audioscreen}>
       <Button
         title="Audio List"
         color="#3D5168"
         // NOTE(CK): Thing1 - this is the name of the screen we named it in AppNavigator.js
-        onPress={() => props.navigation.navigate("AudioScreen", things[0])}
+        onPress={() => props.navigation.navigate("AudioScreen")}
       />
       <Button
         title="Create List"
@@ -105,7 +100,7 @@ const MenuScreen = (props) => {
       <Button
         title="Confirm Pick Up"
         color="#3D5168"
-        onPress={() => props.navigation.navigate("SMSScreen", things[1])}
+        onPress={() => props.navigation.navigate("SMSScreen")}
       />
       {userLists.length > 0 && <View>{}</View>}
       {!loggedIn && (

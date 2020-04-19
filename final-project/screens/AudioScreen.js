@@ -10,8 +10,7 @@ import StopIcon from "../icons/stop(64).png";
 import PauseIcon from "../icons/pause(64).png";
 import ReplayIcon from "../icons/replay(64).png";
 
-const AudioScreen = ({ route }) => {
-  const { thing, text } = route.params;
+const AudioScreen = () => {
 
   let recording = null,
     soundObject = null,

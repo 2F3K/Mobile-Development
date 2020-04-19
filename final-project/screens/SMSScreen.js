@@ -4,7 +4,7 @@ import * as SMS from "expo-sms";
 import { TextInput } from "react-native-gesture-handler";
 import { styles } from "../styles/styles";
 
-const SMSScreen = ({ route }) => {
+const SMSScreen = () => {
   const [recipient, setRecipient] = useState("");
   const [number, setNumber] = useState("");
 
