@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   listBox: {
-    width: "200px",
-    height: "200px",
+    width: 200,
+    height: 200,
     borderStyle: "solid",
-    borderWidth: "2px",
+    borderWidth: 2,
     borderColor: "black",
   },
 });
