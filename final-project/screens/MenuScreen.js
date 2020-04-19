@@ -87,44 +87,10 @@ const MenuScreen = (props) => {
     });
   };
 
-<<<<<<< HEAD
   useKeepAwake();
 
   return (
     <View style={styles.mainscreen}>
-=======
-  function saveDataWithFirebase() {
-    // when saving data to create a new collection you can use SET
-    // and wehn updating you can use UPDATE (refer to docs)
-    // https://firebase.google.com/docs/firestore/manage-data/add-data
-    var userId = auth.currentUser.uid;
-
-    db.ref("users/" + userId).set({
-      text: databaseData,
-    });
-  }
-
-  function retrieveDataFromFirebase() {
-    // when loading data, you can either fetch the data once like in these examples
-    //  https://firebase.google.com/docs/firestore/query-data/get-data
-    // or you can listen to the collection and whenever it is updated on server it can
-    // be handled automatically by your code
-    // http://firebase.google.com/docs/firestore/query-data/listen
-    var userId = auth.currentUser.uid;
-
-    // Load from realtime DB
-    db.ref("/users/" + userId)
-      .once("value")
-      .then(function (snapshot) {
-        setDatabaseData(snapshot.val().text);
-      });
-  }
-  useKeepAwake();
-
-  return (
-    <View style={styles.audioscreen}>
-      <Text style={{ color: "white", fontSize: 30 }}>Navigation buttons</Text>
->>>>>>> 0131b740cf473c9387391d7f1ce9c36b0fb36816
       <Button
         title="Audio List"
         color="#3D5168"
@@ -144,11 +110,7 @@ const MenuScreen = (props) => {
       {userLists.length > 0 && <View>{}</View>}
       {!loggedIn && (
         <View>
-<<<<<<< HEAD
-          <Text>Sign Up</Text>
-=======
           <Text style={{ color: "#FFFFFF" }}>Login</Text>
->>>>>>> 0131b740cf473c9387391d7f1ce9c36b0fb36816
           <TextInput
             onChangeText={(value) => setRegistrationEmail(value)}
             autoCapitalize="none"
@@ -192,33 +154,7 @@ const MenuScreen = (props) => {
       )}
       {loggedIn && (
         <View>
-<<<<<<< HEAD
           <Button title="Sign Out" onPress={signoutWithFirebase} />
-=======
-          <TextInput
-            multiline={true}
-            numberOfLines={4}
-            onChangeText={(value) => setDatabaseData(value)}
-            value={databaseData}
-            style={{ borderBottomWidth: 2, borderBottomColor: "black" }}
-            style={styles.inputText}
-          />
-          <Button
-            title="Save Data"
-            onPress={saveDataWithFirebase}
-            color="#00FF00"
-          />
-          <Button
-            title="Load Data"
-            onPress={retrieveDataFromFirebase}
-            color="#00FF00"
-          />
-          <Button
-            title="Sign Out"
-            onPress={signoutWithFirebase}
-            color="#00FF00"
-          />
->>>>>>> 0131b740cf473c9387391d7f1ce9c36b0fb36816
         </View>
       )}
     </View>
