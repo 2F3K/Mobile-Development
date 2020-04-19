@@ -109,4 +109,8 @@ export const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
   },
+  textButton: {
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
 });

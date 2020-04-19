@@ -48,7 +48,7 @@ const AppNavigator = () => {
           name="SMSScreen"
           component={SMSScreen}
           options={{
-            title: "Thing #2",
+            title: "SMS Screen",
             headerStyle: {
               backgroundColor: "#333A46",
             },
