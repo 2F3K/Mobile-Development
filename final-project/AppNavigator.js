@@ -63,7 +63,7 @@ const AppNavigator = () => {
           name="ListScreen"
           component={ListScreen}
           options={{
-            title: "Thing #3",
+            title: "List",
             headerStyle: {
               backgroundColor: "#333A46",
             },

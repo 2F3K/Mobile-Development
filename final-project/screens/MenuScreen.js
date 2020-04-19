@@ -10,7 +10,6 @@ const things = [
 ];
 
 const MenuScreen = (props) => {
-  console.log(props);
   // firebase auth states
   const [registrationEmail, setRegistrationEmail] = useState("");
   const [registrationPass, setRegistrationPass] = useState("");
