@@ -58,4 +58,56 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
   },
+  List: {
+    padding: 4,
+    margin: 4,
+    alignContent: "center",
+    width: "90%",
+    minWidth: "90%",
+  },
+  inputText: {
+    borderWidth: 1,
+    borderColor: "blue",
+    backgroundColor: "#fff",
+    borderRadius: 4,
+    padding: 10,
+    margin: 5,
+  },
+  listItemRow: {
+    position: "relative",
+    padding: 12,
+    margin: 4,
+    height: 40,
+    backgroundColor: "rgba(100,100,100, 0.25)",
+  },
+
+  listItemCheckbox: { width: 20, height: 20 },
+
+  listItemName: {
+    overflow: "hidden",
+  },
+  listContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+    marginVertical: 10,
+  },
+  inputContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  inputText: {
+    borderWidth: 1,
+    borderColor: "blue",
+    backgroundColor: "#fff",
+    borderRadius: 4,
+    padding: 10,
+    margin: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    borderRadius: 4,
+    padding: 10,
+    margin: 5,
+  },
 });

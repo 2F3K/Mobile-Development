@@ -1,5 +1,5 @@
-import * as React from 'react';
-import AppNavigator from './AppNavigator';
+import * as React from "react";
+import AppNavigator from "./AppNavigator";
 
 /*
 NOTE(CK): Apr 17 - We could put each api on its own page? Audio / SMS / Camera / Location
@@ -17,10 +17,6 @@ NOTE(CK): Apr 17 - We could put each api on its own page? Audio / SMS / Camera /
 
 */
 
-
 export default function App() {
-
-  return (
-      <AppNavigator />
-  );
+  return <AppNavigator />;
 }
