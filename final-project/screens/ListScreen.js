@@ -8,23 +8,29 @@ const ListScreen = ({ route }) => {
   const { thing, text } = route.params;
   const [listTitle, setListTitle] = useState("");
   const [itemsList, setItems] = useState([]);
-  const [listName, setListName] = useState("");
+  const [itemName, setItemName] = useState("");
 
   const listTitleHandler = (title) => {
     setListTitle(title);
   };
-  const addItemHandler = (newItem) => {
-    setItems((itemsList) => [
-      ...itemsList,
-      {
-        key: (Math.random() * 100).toString(),
-        value: newItem,
-      },
-    ]);
+
+  const addItemHandler = () => {
+    if (itemName !== "") {
+      setItems((itemsList) => [
+        ...itemsList,
+        {
+          key: (Math.random() * 100).toString(),
+          value: itemName,
+          isChecked: false,
+        },
+      ]);
+    }
   };
+
   const listItemNameHandler = (value) => {
-    setListName(value);
+    setItemName(value);
   };
+
   return (
     <View>
       <View>
@@ -38,16 +44,13 @@ const ListScreen = ({ route }) => {
       <View style={styles.List}>
         <FlatList
           data={itemsList}
-          renderItem={(itemData) => (
-            <ListItem id={itemData.item.key} name={itemData.item.value[0]} />
-          )}
+          renderItem={(itemData) => <ListItem item={itemData.item} />}
         />
-        <View style={styles.inputContainer}>
+        <View style={styles.inputText}>
           <TextInput
-            style={styles.inputText}
-            placeholder="Name"
+            placeholder="Item"
             onChangeText={listItemNameHandler}
-            value={listName}
+            value={itemName}
           />
         </View>
         <View style={styles.buttonContainer}>

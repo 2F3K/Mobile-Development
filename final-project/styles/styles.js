@@ -74,28 +74,27 @@ export const styles = StyleSheet.create({
     margin: 5,
   },
   listItemRow: {
-    position: "relative",
-    padding: 12,
     margin: 4,
-    height: 40,
+    height: 60,
+    width: "100%",
+    alignItems: "center",
     backgroundColor: "rgba(100,100,100, 0.25)",
+    flex: 1,
+    flexDirection: "row",
   },
 
   listItemCheckbox: { width: 20, height: 20 },
 
   listItemName: {
     overflow: "hidden",
-  },
-  listContainer: {
-    flex: 1,
-    justifyContent: "center",
     padding: 10,
-    marginVertical: 10,
   },
-  inputContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // listContainer: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   padding: 10,
+  //   marginVertical: 10,
+  // },
   inputText: {
     borderWidth: 1,
     borderColor: "blue",
