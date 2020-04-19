@@ -13,7 +13,7 @@ const Message = (props) => {
         />
       </View>
       <View style={styles.listItemName}>
-        <Text>{props.name}</Text>
+        <Text>asdsad</Text>
       </View>
     </View>
   );

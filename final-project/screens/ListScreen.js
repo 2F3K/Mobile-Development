@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Button } from "react-native";
 import ListItem from "./ListItem";
-import ListItemInput from "./ListItemInput";
 import { TextInput } from "react-native-gesture-handler";
 import { styles } from "../styles/styles";
 
@@ -9,10 +8,12 @@ const ListScreen = ({ route }) => {
   const { thing, text } = route.params;
   const [listTitle, setListTitle] = useState("");
   const [itemsList, setItems] = useState([]);
+  const [listName, setListName] = useState("");
+
   const listTitleHandler = (title) => {
     setListTitle(title);
   };
-  const AddItemHandler = (newItem) => {
+  const addItemHandler = (newItem) => {
     setItems((itemsList) => [
       ...itemsList,
       {
@@ -20,6 +21,9 @@ const ListScreen = ({ route }) => {
         value: newItem,
       },
     ]);
+  };
+  const listItemNameHandler = (value) => {
+    setListName(value);
   };
   return (
     <View>
@@ -38,7 +42,17 @@ const ListScreen = ({ route }) => {
             <ListItem id={itemData.item.key} name={itemData.item.value[0]} />
           )}
         />
-        <ListItemInput onAddItem={AddItemHandler} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Name"
+            onChangeText={listItemNameHandler}
+            value={listName}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Add" onPress={addItemHandler} color="green" />
+        </View>
       </View>
     </View>
   );
