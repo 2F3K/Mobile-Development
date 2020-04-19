@@ -10,7 +10,6 @@ const things = [
 ];
 
 const MenuScreen = (props) => {
-  console.log(props);
   // firebase auth states
   const [registrationEmail, setRegistrationEmail] = useState("");
   const [registrationPass, setRegistrationPass] = useState("");
@@ -93,32 +92,11 @@ const MenuScreen = (props) => {
     // when saving data to create a new collection you can use SET
     // and wehn updating you can use UPDATE (refer to docs)
     // https://firebase.google.com/docs/firestore/manage-data/add-data
-
     var userId = auth.currentUser.uid;
 
     db.ref("users/" + userId).set({
       text: databaseData,
     });
-
-    // SAVE DATA TO FIRESTORE
-    firestore
-      .collection("users")
-      .doc(userId)
-      .set(
-        {
-          text: databaseData,
-        },
-        {
-          merge: true, // set with merge set to true to make sure we don't remove data we didn't intend to
-        }
-      )
-      .then(function () {
-        Alert.alert("Document successfully written!");
-      })
-      .catch(function (error) {
-        Alert.alert("Error writing document");
-        console.log("Error writing document: ", error);
-      });
   }
 
   function retrieveDataFromFirebase() {
@@ -127,34 +105,12 @@ const MenuScreen = (props) => {
     // or you can listen to the collection and whenever it is updated on server it can
     // be handled automatically by your code
     // http://firebase.google.com/docs/firestore/query-data/listen
-
     var userId = auth.currentUser.uid;
 
-    /*
-   // read once from data store
-    firestore.collection("users").doc(userId).get()
-      .then(function(doc) {
-        if (doc.exists) {
-          setDatabaseData(doc.data().text);
-          console.log("Document data:", doc.data());
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("no such doc!");
-        }
-      })
-      .catch(function(error) {
-        console.log("Error getting doc:", error);
-      });
-    */
-
-    // real time updates
-    firestore
-      .collection("users")
-      .doc(userId)
-      .onSnapshot(function (doc) {
-        setDatabaseData(doc.data().text);
-        console.log("Document data:", doc.data());
-      });
+    // Load from realtime DB
+    db.ref('/users/' + userId).once('value').then(function (snapshot) {
+      setDatabaseData(snapshot.val().text);
+    });
   }
   useKeepAwake();
 
