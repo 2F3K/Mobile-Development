@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { View, FlatList, Button } from "react-native";
 import ListItem from "./ListItem";
 import { TextInput } from "react-native-gesture-handler";
+import { db, auth } from "../FirebaseConfig";
 import { styles } from "../styles/styles";
 
 const ListScreen = ({ route }) => {
-  const { thing, text } = route.params;
+  const { userId } = route.params;
   const [listTitle, setListTitle] = useState("");
   const [itemsList, setItems] = useState([]);
   const [itemName, setItemName] = useState("");
@@ -31,6 +32,21 @@ const ListScreen = ({ route }) => {
     setItemName(value);
   };
 
+  function saveToDB() {
+    //var userId = auth.currentUser.uid;
+    db.ref("users/" + userId).set({
+      list: itemsList,
+    });
+  }
+
+  function retrieveFromDB() {
+    //var userId = auth.currentUser.uid;
+    // Load from realtime DB
+    db.ref('/users/' + userId).once('value').then(function (snapshot) {
+      setItems(snapshot.val().list);
+    });
+  }
+
   return (
     <View>
       <View>
@@ -55,6 +71,12 @@ const ListScreen = ({ route }) => {
         </View>
         <View style={styles.buttonContainer}>
           <Button title="Add" onPress={addItemHandler} color="green" />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Save" onPress={saveToDB} color="blue" />
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button title="Load" onPress={retrieveFromDB} color="blue" />
         </View>
       </View>
     </View>
