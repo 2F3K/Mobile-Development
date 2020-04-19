@@ -11,7 +11,6 @@ const MenuScreen = (props) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userLists, setUserLists] = useState([]);
 
   const registerWithFirebase = () => {
     if (registrationEmail.length < 4) {
@@ -102,7 +101,6 @@ const MenuScreen = (props) => {
         color="#3D5168"
         onPress={() => props.navigation.navigate("SMSScreen")}
       />
-      {userLists.length > 0 && <View>{}</View>}
       {!loggedIn && (
         <View>
           <Text style={{ color: "#FFFFFF" }}>Login</Text>
