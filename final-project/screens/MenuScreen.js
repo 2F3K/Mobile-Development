@@ -108,15 +108,17 @@ const MenuScreen = (props) => {
     var userId = auth.currentUser.uid;
 
     // Load from realtime DB
-    db.ref('/users/' + userId).once('value').then(function (snapshot) {
-      setDatabaseData(snapshot.val().text);
-    });
+    db.ref("/users/" + userId)
+      .once("value")
+      .then(function (snapshot) {
+        setDatabaseData(snapshot.val().text);
+      });
   }
   useKeepAwake();
 
   return (
-    <View style={styles.mainscreen}>
-      <Text>Navigation buttons</Text>
+    <View style={styles.audioscreen}>
+      <Text style={{ color: "white", fontSize: 30 }}>Navigation buttons</Text>
       <Button
         title="Audio List"
         color="#3D5168"
@@ -136,7 +138,7 @@ const MenuScreen = (props) => {
       {userLists.length > 0 && <View>{}</View>}
       {!loggedIn && (
         <View>
-          <Text>Login</Text>
+          <Text style={{ color: "#FFFFFF" }}>Login</Text>
           <TextInput
             onChangeText={(value) => setRegistrationEmail(value)}
             autoCapitalize="none"
@@ -144,6 +146,7 @@ const MenuScreen = (props) => {
             autocompletetype="email"
             keyboardType="email-address"
             placeholder="email"
+            style={styles.inputText}
           />
           <TextInput
             onChangeText={(value) => setRegistrationPass(value)}
@@ -152,9 +155,10 @@ const MenuScreen = (props) => {
             autocompletetype="password"
             // keyboardType="visible-password"
             placeholder="password"
+            style={styles.inputText}
           />
           <Button title="Register" onPress={registerWithFirebase} />
-          <Text>Sign in</Text>
+          <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
           <TextInput
             onChangeText={(value) => setLoginEmail(value)}
             autoCapitalize="none"
@@ -162,6 +166,7 @@ const MenuScreen = (props) => {
             autocompletetype="email"
             keyboardType="email-address"
             placeholder="email"
+            style={styles.inputText}
           />
           <TextInput
             onChangeText={(value) => setLoginPass(value)}
@@ -170,8 +175,9 @@ const MenuScreen = (props) => {
             autocompletetype="password"
             // keyboardType="visible-password"
             placeholder="password"
+            style={styles.inputText}
           />
-          <Button title="Login" onPress={loginWithFirebase} />
+          <Button title="Login" onPress={loginWithFirebase} color="#00FF00" />
         </View>
       )}
       {loggedIn && (
@@ -182,10 +188,23 @@ const MenuScreen = (props) => {
             onChangeText={(value) => setDatabaseData(value)}
             value={databaseData}
             style={{ borderBottomWidth: 2, borderBottomColor: "black" }}
+            style={styles.inputText}
           />
-          <Button title="Save Data" onPress={saveDataWithFirebase} />
-          <Button title="Load Data" onPress={retrieveDataFromFirebase} />
-          <Button title="Sign Out" onPress={signoutWithFirebase} />
+          <Button
+            title="Save Data"
+            onPress={saveDataWithFirebase}
+            color="#00FF00"
+          />
+          <Button
+            title="Load Data"
+            onPress={retrieveDataFromFirebase}
+            color="#00FF00"
+          />
+          <Button
+            title="Sign Out"
+            onPress={signoutWithFirebase}
+            color="#00FF00"
+          />
         </View>
       )}
     </View>

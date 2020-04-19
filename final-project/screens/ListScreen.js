@@ -32,7 +32,7 @@ const ListScreen = ({ route }) => {
   };
 
   return (
-    <View>
+    <View style={styles.audioscreen}>
       <View>
         <TextInput
           style={styles.inputText}
