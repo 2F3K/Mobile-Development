@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useState } from "react";
+import { View, FlatList } from "react-native";
 import ListItem from "./ListItem";
+import { styles } from "../styles/styles";
 import ListItemInput from "./ListItemInput";
 import { TextInput } from "react-native-gesture-handler";
 const ListScreen = ({ route }) => {
@@ -42,21 +43,3 @@ const ListScreen = ({ route }) => {
   );
 };
 export default ListScreen;
-
-const styles = StyleSheet.create({
-  List: {
-    padding: "4",
-    margin: "4",
-    alignContent: "center",
-    width: "90%",
-    minWidth: "90%",
-  },
-  inputText: {
-    borderWidth: 1,
-    borderColor: "blue",
-    backgroundColor: "#fff",
-    borderRadius: 4,
-    padding: 10,
-    margin: 5,
-  },
-});
